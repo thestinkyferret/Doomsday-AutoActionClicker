@@ -1,173 +1,146 @@
-# AutoClickAction Framework
+# Doomsday_AutoActionClicker
 
-## Overview
+## AutoClickAction Framework
 
-The `AutoClickAction Framework` is a Python-based automation tool designed to perform repetitive UI interactions (mouse clicks) within a specified application window. It locks onto the target window, uses coordinates relative to the window’s top-left corner, and executes modular action scripts in a randomized order with variable delays to mimic human behavior. The framework is ideal for automating repetitive tasks in applications with consistent UI layouts, such as games or software with clickable interfaces.
+### Overview
 
-## Features
+The `Doomsday_AutoActionClicker` automates Dommsday: Last survivor tasks in a random way that mimics human behavour, so you can autofarm contantly.
 
-- **Window Locking**: Automatically detects and focuses the target application window, ensuring clicks are confined to its bounds, even if the window moves.
-- **Relative Coordinates**: Uses coordinates relative to the window’s top-left corner for consistent click placement across different screen positions.
-- **Modular Actions**: Supports user-defined action scripts in a dedicated `/actions` directory, allowing easy addition of new tasks.
-- **Randomized Execution**: Shuffles action order and introduces random delays to reduce detectability by anti-automation systems.
-- **Error Handling**: Skips invalid clicks (e.g., outside window bounds) and provides debugging output.
-- **Safety Features**: Includes a failsafe (move mouse to top-left corner to stop) and graceful error recovery.
+---
 
-## Prerequisites
+### Current Actions
 
-- **Python 3.x**: Ensure Python is installed on your system.
-- **Libraries**:
-  - `pyautogui`: For mouse click automation. Install with `pip install pyautogui`.
-  - `pygetwindow`: For window detection and focus (Windows-focused; limited on macOS/Linux). Install with `pip install pygetwindow`.
-- **Target Application**: The application must run in a window with a consistent title and UI layout. Use windowed mode for best results.
+- **Check_mail**: Automatically checks mail, reads all and accepts all rewards before returing to the main screen.
+- **Help_members**: Automatically clicks the help members icon.
 
-## Installation
 
-1. **Clone or Create the Project Directory**:
-   - Create a directory for the framework (e.g., `AutoClickAction_Framework`).
-   - Place the main script (`main.py`) in the root directory.
-2. **Install Dependencies**:
+---
 
-   ```bash
-   pip install pyautogui pygetwindow
-   ```
-3. **Create the Actions Directory**:
-   - Create a subdirectory named `actions` in the project root.
-   - Place action scripts (e.g., `action_example.py`) in the `actions` folder.
-4. **Verify Window Title**:
-   - Run the target application and note its window title (visible in the title bar).
-   - Alternatively, use the following Python code to list open window titles:
+### Prerequisites
 
-     ```python
-     import pygetwindow as gw
-     print(gw.getAllTitles())
-     ```
+- **Python 3.x**
+- Install dependencies:
 
-## Usage
-
-**FIRST! Create actions** 
->>> THIS IS ONLY FOR THE FIRST TIME OR IF YOUR WANT TO ADD MORE ACTIONS
-   - Run your application/game (put it in the corner of your screen where you will be leaving it to automate, then open `create_action.py` in Visual studio code on the opposite side of the screen so you can see the game you opened fully and clearly)
-   - Run `python create_action.py` in the terminal of Visual studio code
-   - Type in an action name (e.g., `check_mail`)
-   - hover your mouse over your fistr click action and press `C` to mark it as the first, then find where you want your second click to be and press `C` again and so on until the action (e.g., `check_mail` is done. Make sure you add clicks to return back to the main screen and any in-between clicks needed to navigate.)
-   - In the Visual studio code terminal you can press `Q` to save and quit the script. It will create your action file!
-
-______________________
-
-1. **Configure the Main Script to run the Autoactionclicker**:
-   - Open `main.py` and update the `WINDOW_TITLE` variable to match the target application’s window title (e.g., `"My Application"`).
-   - Adjust `MIN_DELAY` and `MAX_DELAY` for random delays between actions (in seconds).
-2. **Create Action Scripts**:
-   - In the `actions` directory, create Python scripts (e.g., `action_colect_resources.py`) with an `execute()` function.
-   - Define a `click_sequence` list of `(x, y, delay)` tuples, where:
-     - `x, y`: Coordinates relative to the window’s top-left corner.
-     - `delay`: Time to wait after the click (in seconds).
-   - Example action script:
-
-     ```python
-     import time
-     from auto_farm_base import click_in_window
-     
-     def execute():
-         click_sequence = [
-             (300, 400, 0.5),  # Click button 1, wait 0.5s
-             (600, 500, 0.8),  # Click button 2, wait 0.8s
-         ]
-         print("Executing example action")
-         for x, y, delay in click_sequence:
-             if click_in_window(x, y):
-                 print(f"Clicked at ({x}, {y}), waiting {delay}s")
-                 time.sleep(delay)
-             else:
-                 print(f"Skipped click at ({x}, {y}) due to window error")
-     ```
-3. **Find Coordinates**:
-   - Run the target application in windowed mode.
-   - Use `pyautogui.displayMousePosition()` to find coordinates relative to the window’s top-left corner:
-
-     ```python
-     import pyautogui
-     pyautogui.displayMousePosition()
-     ```
-   - Update action scripts with these coordinates.
-4. **Run the Framework**:
-   - Ensure the target application is open.
-   - Run the main script:
-
-     ```bash
-     python main.py
-     ```
-   - The framework loads all `.py` files in `/actions` (excluding `__init__.py`), executes their `execute()` functions in random order, and applies random delays.
-5. **Stop the Script**:
-   - Move the mouse to the top-left corner of the screen (PyAutoGUI failsafe).
-   - Or press `Ctrl+C` in the terminal.
-
-## Directory Structure
-
-```
-AutoClickAction_Framework/
-├── main.py      # Main script
-├── actions/               # Directory for action scripts
-│   ├── action_collect_resources.py  # Example action script
-│   ├── action_task1.py    # Additional action scripts
-│   └── ...
+```bash
+pip install pyautogui pygetwindow keyboard
 ```
 
-## Customization
+---
 
-- **Add New Actions**:
-  - Create new `.py` files in `/actions` with an `execute()` function following the structure above.
-  - The framework automatically loads all valid action scripts.
-- **Adjust Delays**:
-  - Modify `MIN_DELAY` and `MAX_DELAY` in `auto_farm_base.py` for action-to-action delays.
-  - Use per-click delays in action scripts for task-specific timing.
-- **Enhance Obfuscation**:
-  - Add random mouse movements or variable per-click delays in action scripts to further mimic human behavior.
-  - Example:
+### Setup Instructions
 
-    ```python
-    import random
-    time.sleep(random.uniform(delay * 0.8, delay * 1.2))
-    ```
-- **Error Handling**:
-  - The framework skips clicks outside the window and logs errors for debugging.
-  - Add custom checks (e.g., pixel color validation) in action scripts for robustness.
+#### 1. **Place Doomsday Window in Top-Right Corner**
 
-## Limitations
+Make sure you move the **Doomsday: Last Survivors** game window to the **top-right corner** of your screen and do not move it again. All coordinates will be based on this position.
 
-- **Platform**: `pygetwindow` works best on Windows. On macOS/Linux, window focus and detection may be unreliable; consider using an emulator for consistency.
-- **Coordinate Accuracy**: Coordinates must match the application’s window resolution. Resizing the window may shift UI elements, requiring coordinate updates.
-- **Detectability**: Automation may be detected by applications with anti-cheat or monitoring systems. Use with caution and test in a safe environment.
-- **Application-Specific**: The framework assumes a consistent UI. Dynamic or frequently updated interfaces may require frequent coordinate adjustments.
+#### 2. **Clone or Create Project Directory**
 
-## Risks
+- Place `main.py` in the root folder.
+- Create an `/actions` directory for the action files (create using `create_actin.py` or clone the ones from this directory).
+- Place `create_action.py` in the root to build new actions if needed.
 
-- **Terms of Service**: Automating UI interactions may violate the target application’s terms, risking account bans or restrictions.
-- **Security**: Avoid untrusted third-party tools or scripts to prevent malware.
-- **Testing**: Use a secondary account or test environment to avoid impacting primary accounts.
+#### 3. **Run Terminal as Administrator**
 
-## Troubleshooting
+To ensure proper functionality:
 
-- **Window Not Found**:
-  - Verify `WINDOW_TITLE` matches the application’s exact title.
-  - Check if the application is running in windowed mode.
-- **Clicks Misaligned**:
-  - Recalibrate coordinates using `pyautogui.displayMousePosition()`.
-  - Ensure the window resolution is consistent.
-- **Script Stops Unexpectedly**:
-  - Check terminal output for error messages.
-  - Ensure action scripts have a valid `execute()` function and are in `/actions`.
+- Open Command Prompt **as Administrator**
+- Navigate to the folder containing the software:
 
-## Contributing
+```bash
+cd "C:\your\path\to\this\software"
+```
 
-To extend the framework:
+- Make sure the terminal is small and docked to the **left side of your screen**, so it doesn't overlap the Doomsday game.
 
-- Add new action scripts for specific tasks.
-- Enhance `main.py` with features like pixel color checks, logging to a file, or advanced randomization.
-- Share improvements or bug fixes via pull requests (if hosted in a repository).
-- Create repos for different applications with actions specific to that application.
+---
 
-## License
+### Creating Action Scripts
 
-This framework is provided as-is for educational purposes. Use responsibly and respect the target application’s terms of service. (YOU MUST CREDIT when using this framwork ~ Pls!!)
+> Only required when adding new actions
+
+1. Start the game and position the window in the **top-right corner**.
+2. Launch `create_action.py`:
+
+```bash
+python create_action.py
+```
+
+3. When prompted:
+   - Enter a name for your action (e.g., `check_mail`)
+4. Hover your mouse over a desired click position and press **`C`** to capture it.
+5. Repeat for all clicks needed in the action (including navigation back).
+6. Press **`Q`** to save and exit. The action script will be saved in the `/actions` folder automatically.
+
+---
+
+### Running Doomsday_AutoActionClicker
+
+1. Open Doomsday and ensure the window is in the **top-right corner**.
+2. In your admin terminal (small and on the left side), run:
+
+```bash
+python main.py
+```
+
+3. After the script launches, **click the game window** to bring it into focus.
+
+---
+
+### Action Script Example
+
+Each action script in `/actions` must define an `execute()` function using a sequence of clicks.
+
+```python
+import time
+from auto_farm_base import click_in_window
+
+def execute():
+    click_sequence = [
+        (300, 400, 0.5),  # Click mail icon
+        (450, 550, 0.8),  # Click Read All
+        (200, 150, 0.6),  # Back button
+    ]
+    print("Executing mail collection")
+    for x, y, delay in click_sequence:
+        if click_in_window(x, y):
+            print(f"Clicked at ({x}, {y}), waiting {delay}s")
+            time.sleep(delay)
+        else:
+            print(f"Skipped click at ({x}, {y}) due to window error")
+```
+
+---
+
+### Directory Structure
+
+```
+Doomsday_AutoActionClicker/
+├── main.py
+├── create_action.py
+├── actions/
+│   ├── check_mail.py
+│   └── other_actions.py
+```
+
+---
+
+### Tips & Notes
+
+- Use `pyautogui.displayMousePosition()` if you need to manually inspect coordinates.
+- Adjust delays inside each action script to control pacing between clicks.
+- You can edit the `MIN_DELAY` and `MAX_DELAY` values in `main.py` to slow down or speed up between actions (it randomizes order and lenth based on these).
+- Click the termial & use `CRTL + C` exit the automation at any time.
+
+---
+
+### Limitations
+
+- **Window must stay in the top-right**. Moving it will break coordinate mapping.
+- Actions must be updated if Doomsday UI changes.
+- Use responsibly; automation can violate game terms of service.
+
+---
+
+### License
+
+You may use this code as you please, all I ask is that you credit the author if reused or modified. (thestinkyferret)

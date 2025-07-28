@@ -3,49 +3,22 @@ import random
 import time
 import importlib
 import os
-import pygetwindow as gw
+import keyboard
 
 # Configuration
 pyautogui.FAILSAFE = True  # Move mouse to top-left to stop script
-pyautogui.PAUSE = 0.5  # Base delay for each pyautogui action
-MIN_DELAY = 1  # Minimum delay between actions (seconds)
-MAX_DELAY = 5  # Maximum delay between actions (seconds)
-WINDOW_TITLE = "Doomsday: Last Survivors"  # Adjust to match your game's window title
+pyautogui.PAUSE = 0.5      # Base delay for each pyautogui action
+MIN_DELAY = 1              # Minimum delay between actions (seconds)
+MAX_DELAY = 5              # Maximum delay between actions (seconds)
 
 # Directory for action scripts
 ACTION_DIR = "actions"
 
-def get_game_window():
-    """Find and return the game window, or None if not found."""
-    try:
-        windows = gw.getWindowsWithTitle(WINDOW_TITLE)
-        if windows:
-            window = windows[0]
-            window.activate()  # Focus the window
-            return window
-        print(f"Error: Window '{WINDOW_TITLE}' not found.")
-        return None
-    except Exception as e:
-        print(f"Error finding window: {e}")
-        return None
-
 def click_in_window(x, y):
-    """Click at coordinates relative to the game window's top-left corner."""
-    window = get_game_window()
-    if not window:
-        return False
+    """Click at absolute screen coordinates (no window logic)."""
     try:
-        # Adjust coordinates to window's client area
-        abs_x = window.left + x
-        abs_y = window.top + y
-        # Check if coordinates are within window bounds
-        if (window.left <= abs_x <= window.right and
-                window.top <= abs_y <= window.bottom):
-            pyautogui.click(abs_x, abs_y)
-            return True
-        else:
-            print(f"Warning: Click at ({x}, {y}) is outside window bounds.")
-            return False
+        pyautogui.click(x, y)
+        return True
     except Exception as e:
         print(f"Error clicking at ({x}, {y}): {e}")
         return False
@@ -71,7 +44,7 @@ def load_action_modules():
     return actions
 
 def main():
-    print("Starting auto-farm script. Move mouse to top-left to stop.")
+    print("Starting script. Move mouse to top-left or press ESC to stop.")
     actions = load_action_modules()
 
     if not actions:
@@ -79,17 +52,22 @@ def main():
         return
 
     while True:
-        # Shuffle actions for random order
+        if keyboard.is_pressed("esc"):
+            print("ESC pressed. Stopping script.")
+            break
+
         random.shuffle(actions)
         for action in actions:
+            if keyboard.is_pressed("esc"):
+                print("ESC pressed. Stopping script.")
+                return
             try:
-                action()  # Execute the action
-                # Random delay to mimic human behavior
+                action()
                 time.sleep(random.uniform(MIN_DELAY, MAX_DELAY))
             except Exception as e:
                 print(f"Error executing action: {e}")
-        # Longer delay between full cycles
-        time.sleep(random.uniform(10, 30))
+
+        time.sleep(random.uniform(10, 30))  # Delay between cycles
 
 if __name__ == "__main__":
     try:
