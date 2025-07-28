@@ -156,8 +156,8 @@ To extend the framework:
 - Add new action scripts for specific tasks.
 - Enhance `main.py` with features like pixel color checks, logging to a file, or advanced randomization.
 - Share improvements or bug fixes via pull requests (if hosted in a repository).
-- Create forks for different applications with actions specific to that application.
+- Create repos for different applications with actions specific to that application.
 
 ## License
 
-This framework is provided as-is for educational purposes. Use responsibly and respect the target application’s terms of service.
+This framework is provided as-is for educational purposes. Use responsibly and respect the target application’s terms of service. (YOU MUST CREDIT when using this framwork ~ Pls!!)
