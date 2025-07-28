@@ -25,7 +25,7 @@ The `AutoClickAction Framework` is a Python-based automation tool designed to pe
 
 1. **Clone or Create the Project Directory**:
    - Create a directory for the framework (e.g., `AutoClickAction_Framework`).
-   - Place the main script (`auto_farm_base.py`) in the root directory.
+   - Place the main script (`main.py`) in the root directory.
 2. **Install Dependencies**:
 
    ```bash
@@ -45,11 +45,18 @@ The `AutoClickAction Framework` is a Python-based automation tool designed to pe
 
 ## Usage
 
-1. **Configure the Main Script**:
-   - Open `auto_farm_base.py` and update the `WINDOW_TITLE` variable to match the target application’s window title (e.g., `"My Application"`).
+**FIRST! Create actions**
+   - Run your application/game (put it in the corner of your screen where you will be leaving it to automate, then open `create_action.py` in Visual studio code on the opposite side of the screen so you can see the game you opened fully and clearly)
+   - Run `python create_action.py` in the terminal of Visual studio code
+   - Type in an action name (e.g., `check_mail`)
+   - hover your mouse over your fistr click action and press `C` to mark it as the first, then find where you want your second click to be and press `C` again and so on until the action (e.g., `check_mail` is done. Make sure you add clicks to return back to the main screen and any in-between clicks needed to navigate.)
+   - In the Visual studio code terminal you can press `Q` to save and quit the script. It will create your action file!
+
+1. **Configure the Main Script to run the Autoactionclicker**:
+   - Open `main.py` and update the `WINDOW_TITLE` variable to match the target application’s window title (e.g., `"My Application"`).
    - Adjust `MIN_DELAY` and `MAX_DELAY` for random delays between actions (in seconds).
 2. **Create Action Scripts**:
-   - In the `actions` directory, create Python scripts (e.g., `action_example.py`) with an `execute()` function.
+   - In the `actions` directory, create Python scripts (e.g., `action_colect_resources.py`) with an `execute()` function.
    - Define a `click_sequence` list of `(x, y, delay)` tuples, where:
      - `x, y`: Coordinates relative to the window’s top-left corner.
      - `delay`: Time to wait after the click (in seconds).
