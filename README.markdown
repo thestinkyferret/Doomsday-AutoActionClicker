@@ -45,7 +45,8 @@ The `AutoClickAction Framework` is a Python-based automation tool designed to pe
 
 ## Usage
 
-**FIRST! Create actions**
+**FIRST! Create actions** 
+>>> THIS IS ONLY FOR THE FIRST TIME OR IF YOUR WANT TO ADD MORE ACTIONS
    - Run your application/game (put it in the corner of your screen where you will be leaving it to automate, then open `create_action.py` in Visual studio code on the opposite side of the screen so you can see the game you opened fully and clearly)
    - Run `python create_action.py` in the terminal of Visual studio code
    - Type in an action name (e.g., `check_mail`)
