@@ -53,13 +53,7 @@ The `AutoClickAction Framework` is a Python-based automation tool designed to pe
    - hover your mouse over your fistr click action and press `C` to mark it as the first, then find where you want your second click to be and press `C` again and so on until the action (e.g., `check_mail` is done. Make sure you add clicks to return back to the main screen and any in-between clicks needed to navigate.)
    - In the Visual studio code terminal you can press `Q` to save and quit the script. It will create your action file!
 
-
-
-
-
-
-
-   
+______________________
 
 1. **Configure the Main Script to run the Autoactionclicker**:
    - Open `main.py` and update the `WINDOW_TITLE` variable to match the target application’s window title (e.g., `"My Application"`).
