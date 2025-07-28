@@ -143,4 +143,4 @@ Doomsday_AutoActionClicker/
 
 ### License
 
-You may use this code as you please, all I ask is that you credit the author if reused or modified. (thestinkyferret)
+You may use this code as you please, all I ask is that you credit the author if reused or modified. This is provided for education purposes. (thestinkyferret)
