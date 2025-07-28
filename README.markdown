@@ -4,7 +4,7 @@
 
 ### Overview
 
-The `Doomsday_AutoActionClicker` automates Dommsday: Last survivor tasks in a random way that mimics human behavour, so you can autofarm contantly.
+The `Doomsday_AutoActionClicker` automates Dommsday: Last survivor tasks in a random way that mimics human behavour, so you can autofarm on a pc you wont be using for a bit.
 
 ---
 
